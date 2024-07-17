@@ -80,7 +80,9 @@ class _QuizScreenState extends State<QuizScreen> {
               ),
               child: Text(
                 text,
-                style: const TextStyle(fontSize: 22),
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                      color: Colors.black,
+                    ),
               ),
             ),
           ),

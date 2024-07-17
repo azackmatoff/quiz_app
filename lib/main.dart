@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/quiz_screen.dart';
+import 'package:quiz_app/sabak_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
           iconTheme: const IconThemeData(color: Colors.white)),
-      home: const QuizScreen(),
+      home: const SabakScreen(),
     );
   }
 }
