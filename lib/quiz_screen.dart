@@ -105,12 +105,14 @@ class _QuizScreenState extends State<QuizScreen> {
     log('kelgenTuuraJoop = $kelgenTuuraJoop');
     log('koldonuuchununJoobu = $koldonuuchununJoobu');
 
+    //if(buttu) (buttu == true degendin kiska jolu)
     if (buttu == true) {
       log('buttu ========================');
       ikonkaKosh(kelgenTuuraJoop == koldonuuchununJoobu);
       kayradanBashta();
     }
 
+    // if(!buttu) (buttu == false degendin kiska aytilishi)
     if (buttu == false) {
       log('buttu elek ========================');
 
