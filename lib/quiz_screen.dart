@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:quiz_app/suroo_servisteri.dart';
 
 class QuizScreen extends StatefulWidget {
   const QuizScreen({super.key});
@@ -8,6 +11,10 @@ class QuizScreen extends StatefulWidget {
 }
 
 class _QuizScreenState extends State<QuizScreen> {
+  SurooServisteri servis = SurooServisteri();
+
+  List<Widget> ikonkalar = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +27,7 @@ class _QuizScreenState extends State<QuizScreen> {
             children: [
               const SizedBox(),
               Text(
-                'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.',
+                servis.surooAlipKel(),
                 style: Theme.of(context).textTheme.titleLarge,
                 textAlign: TextAlign.center,
               ),
@@ -29,6 +36,9 @@ class _QuizScreenState extends State<QuizScreen> {
                   knopkaniKur(
                     text: 'TRUE',
                     style: Theme.of(context).elevatedButtonTheme.style!,
+                    onPressed: () {
+                      jooptuTeksher(true);
+                    },
                   ),
                   const SizedBox(height: 24),
                   knopkaniKur(
@@ -41,18 +51,14 @@ class _QuizScreenState extends State<QuizScreen> {
                             Colors.white,
                           ),
                         ),
+                    onPressed: () {
+                      jooptuTeksher(false);
+                    },
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8.0),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 18.0),
                     child: Row(
-                      children: [
-                        Icon(Icons.check),
-                        Icon(Icons.check),
-                        Icon(Icons.check),
-                        Icon(Icons.close, color: Colors.red),
-                        Icon(Icons.close, color: Colors.red),
-                        Icon(Icons.close, color: Colors.red),
-                      ],
+                      children: ikonkalar,
                     ),
                   ),
                 ],
@@ -67,12 +73,13 @@ class _QuizScreenState extends State<QuizScreen> {
   Widget knopkaniKur({
     required String text,
     required ButtonStyle style,
+    required VoidCallback onPressed,
   }) {
     return Row(
       children: [
         Expanded(
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: onPressed,
             style: style,
             child: Padding(
               padding: const EdgeInsets.symmetric(
@@ -89,5 +96,67 @@ class _QuizScreenState extends State<QuizScreen> {
         ),
       ],
     );
+  }
+
+  void jooptuTeksher(bool koldonuuchununJoobu) {
+    bool buttu = servis.buttu();
+    bool kelgenTuuraJoop = servis.jooptuAlipKel();
+
+    log('kelgenTuuraJoop = $kelgenTuuraJoop');
+    log('koldonuuchununJoobu = $koldonuuchununJoobu');
+
+    if (buttu == true) {
+      log('buttu ========================');
+      ikonkaKosh(kelgenTuuraJoop == koldonuuchununJoobu);
+      kayradanBashta();
+    }
+
+    if (buttu == false) {
+      log('buttu elek ========================');
+
+      if (kelgenTuuraJoop == koldonuuchununJoobu) {
+        ikonkaKosh(true);
+      } else {
+        ikonkaKosh(false);
+      }
+    }
+  }
+
+  void ikonkaKosh(bool tuuraniKosh) {
+    if (tuuraniKosh == true) {
+      ikonkalar.add(Icon(Icons.check, color: Colors.white));
+    } else {
+      ikonkalar.add(Icon(Icons.close, color: Colors.red));
+    }
+
+    setState(() {
+      servis.kiyinkiSuroogoOt();
+    });
+  }
+
+  void kayradanBashta() {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Suroolor buttu'),
+            content: const SingleChildScrollView(
+              child: Text('Kayradan bashta'),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  servis.kayradanBashta();
+                  // ikonkalar = [];
+                  ikonkalar.clear();
+                  setState(() {});
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
   }
 }

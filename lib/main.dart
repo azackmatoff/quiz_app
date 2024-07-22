@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
           iconTheme: const IconThemeData(color: Colors.white)),
-      home: const SabakScreen(),
+      home: const QuizScreen(),
     );
   }
 }

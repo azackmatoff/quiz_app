@@ -91,8 +91,8 @@ class _SabakScreenState extends State<SabakScreen> {
     // log('3 eski baalardin ichinde kancha baa bar = ${eskiBaalar.length}');
     // log('3 baalardin ichinde kancha baa bar = ${baalar.length}');
 
-    // log('baalar birinchi baa = ${baalar[0]}');
-    // log('baalar akirki baa = ${baalar[baalar.length - 1]}');
+    log('baalar birinchi baa = ${baalar[0]}');
+    log('baalar akirki baa = ${baalar[baalar.length - 1]}');
 
     // log('baalar ekinchi baa = ${baalar[1]}');
 
